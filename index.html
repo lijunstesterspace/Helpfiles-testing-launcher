@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helpfiles Comparison Tool</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Helpfiles Comparison Tool</h1>
+        <form id="comparisonForm">
+            <div class="form-group">
+                <label for="src_dir">Source Directory:</label>
+                <input type="text" id="src_dir" name="src_dir" required>
+            </div>
+            <div class="form-group">
+                <label for="dst_dir">Destination Directory:</label>
+                <input type="text" id="dst_dir" name="dst_dir" required>
+            </div>
+            <div class="form-group">
+                <label for="keywords">Keywords (separated by ;):</label>
+                <input type="text" id="keywords" name="keywords" required>
+            </div>
+            <div class="form-group">
+                <label for="numbers">Numbers (separated by ;):</label>
+                <input type="text" id="numbers" name="numbers" required>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+        <div id="status"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
