@@ -4,7 +4,7 @@ body {
 }
 
 .container {
-    width: 500px;
+    width: 80%;
     margin: 0 auto;
     padding: 20px;
     background-color: white;
@@ -49,4 +49,27 @@ button:hover {
 #status {
     margin-top: 20px;
     text-align: center;
+}
+/* Mobile styles */
+@media (max-width: 600px) {
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+    
+    input, button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+/* Tablet styles */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .container {
+        width: 90%;
+    }
+    
+    input, button {
+        width: 100%;
+    }
 }
