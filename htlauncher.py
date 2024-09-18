@@ -4,8 +4,15 @@ from flask import Flask, request, jsonify
 from bs4 import BeautifulSoup
 import pandas as pd
 import re
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
+
+
+@app.route('/')
+def index():
+    return "Welcome to the Flask API. Use the '/process' endpoint to process files."
 
 
 @app.route('/process', methods=['POST'])
@@ -17,7 +24,10 @@ def process_files():
         keywords = request.form.get('keywords').split(';')
         numbers = request.form.get('numbers').split(';')
 
-        # 检查和创建目标目录
+        # 检查源目录和目标目录
+        if not os.path.exists(src_dir):
+            return jsonify({"message": f"Source directory {src_dir} does not exist."}), 400
+
         if not os.path.exists(dst_dir):
             os.makedirs(dst_dir)
 
@@ -30,7 +40,7 @@ def process_files():
                         dst_dir, os.path.basename(root) + ".html")
                     shutil.copy2(src_file, dst_file)
 
-        # 搜索关键字并生成结果
+        # 搜索关键字和数字并生成结果
         results = {}
         for file in os.listdir(dst_dir):
             if file.endswith(".html"):
@@ -38,10 +48,14 @@ def process_files():
                     contents = f.read()
                     soup = BeautifulSoup(contents, 'html.parser')
                     text = soup.get_text().lower()
+
                     results[file] = {}
+                    # 搜索关键字
                     for keyword in keywords:
                         count = text.count(keyword.lower())
                         results[file][keyword] = count
+
+                    # 搜索数字
                     for number in numbers:
                         count = len(re.findall(
                             r'\b' + re.escape(number) + r'\b', text))
